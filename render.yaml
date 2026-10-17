@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: nubi
+    runtime: node
+    plan: free
+    buildCommand: echo "Sin dependencias"
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SITE_URL
+        sync: false
+      - key: GOOGLE_SITE_VERIFICATION
+        sync: false

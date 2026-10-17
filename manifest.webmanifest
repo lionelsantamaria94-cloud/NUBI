@@ -1,0 +1,39 @@
+{
+ "id": "/",
+ "name": "Nubi · ¿Qué cocino hoy?",
+ "short_name": "Nubi",
+ "description": "Recetas peruanas con IA, modo cocina paso a paso y niveles de chef.",
+ "lang": "es-PE",
+ "dir": "ltr",
+ "start_url": "/?fuente=app",
+ "scope": "/",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#f8f6ef",
+ "theme_color": "#245545",
+ "categories": [
+  "food",
+  "lifestyle",
+  "education"
+ ],
+ "icons": [
+  {
+   "src": "/assets/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/assets/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/assets/maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
