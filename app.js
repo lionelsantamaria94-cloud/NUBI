@@ -399,7 +399,7 @@ function dishEmoji(r){const n=strip(r.name||'');const hit=EMOJI_RULES.find(([re]
 function dishImage(r,cls){
   const own=lastPhoto(r.id);
   if(own)return `<div class="food-photo own ${cls}" style="background-image:url(${own});background-size:cover;background-position:center" role="img" aria-label="Tu foto de ${esc(r.name)}"><span class="own-tag">📸 Tu plato</span></div>`;
-  if(HAS_ART(r.id))return `<div class="food-photo ${cls}" style="background-image:url(assets/dish-${r.id}.webp);background-size:cover;background-position:center" role="img" aria-label="Ilustración de ${esc(r.name)}"></div>`;
+  if(HAS_ART(r.id))return `<div class="food-photo ${cls}" style="background-image:url(assets/dish-${r.id}.jpg),url(assets/dish-${r.id}.webp);background-size:cover;background-position:center" role="img" aria-label="Ilustración de ${esc(r.name)}"></div>`;
   const [a,b]=CAT_COL[category(r)]||CAT_COL.vegetales;
   return `<div class="dish-art ${cls}" style="--a:${a};--b:${b}" role="img" aria-label="Ilustración de ${esc(r.name)}"><span class="plate"><span>${dishEmoji(r)}</span></span></div>`;
 }
