@@ -131,3 +131,8 @@ nav b svg{width:21px;height:21px;display:block}nav b{filter:none!important}
 #btn-apk{display:block}#btn-apk[hidden],#btn-install[hidden],#install-box[hidden]{display:none}
 
 .no-grid .hero-food{background:radial-gradient(circle at 50% 50%,#fff 0 22%,#ece5d8 23% 25%,transparent 26%),radial-gradient(circle at 25% 15%,#ffffff40,transparent 55%),linear-gradient(135deg,#c75b3c,#7c2d1b);position:relative}.no-grid .hero-food::after{content:'🥘';position:absolute;inset:0;display:grid;place-items:center;font-size:70px}
+
+/* v3.4 · ilustraciones propias por plato */
+.hero-food{background:url('assets/dish-b2.webp') center/cover no-repeat!important}
+.hero-food::after{content:none!important}
+.food-photo{background-color:#8a5a36}

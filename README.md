@@ -105,3 +105,9 @@ Consulta VALIDACION.md dentro del paquete para el alcance final verificado y las
 ## Versión 3.3 · Publicación
 
 Lista para Google (SEO, robots.txt, sitemap.xml, imagen para compartir) y para instalar como app o APK. Sigue **PUBLICAR.md** paso a paso. Nuevas variables: `SITE_URL`, `GOOGLE_SITE_VERIFICATION`, `TRUST_PROXY` (ver `.env.example`).
+
+## Versión 3.4 · Ilustraciones propias para cada plato
+
+- Las 101 recetas tienen su propia ilustración en `assets/dish-<id>.webp` (640×640, unos 32 KB cada una), dibujada a partir de los ingredientes reales de la receta, en un mismo estilo de vista cenital. Son originales y libres de derechos.
+- Cuando cocinas un plato y tomas la foto, tu foto reemplaza la ilustración de esa receta.
+- Para regenerar o ajustar una ilustración: edita `tools/dishes/draw.js` y ejecuta `python3 tools/dishes/render.py assets all hoja.jpg` (necesita Playwright con Chromium).

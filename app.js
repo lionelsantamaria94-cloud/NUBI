@@ -150,7 +150,7 @@ function res(){
 }
 function v2(){
   const ps=[...new Set(all().map(r=>r.pais))];
-  return `<h2>Platos para ti</h2><p class="sub">101 recetas de casa, del Perú y del mundo. Imágenes ilustrativas por categoría.</p>
+  return `<h2>Platos para ti</h2><p class="sub">101 recetas de casa, del Perú y del mundo. Cada plato con su propia ilustración.</p>
   <button class="gh" style="width:100%;margin-bottom:8px" data-a="suggest" ${S.suggesting?'disabled':''}>${S.suggesting?'Buscando sugerencias…':'✨ Sugerir platos con mi despensa'}</button>
   <input class="fld" id="q" type="search" placeholder="Ej: pollo, México, huevo" value="${esc(S.q)}" aria-label="Buscar" autocomplete="off">
   <div class="row">${[['todos','Todos'],['listos','Listos'],['casi','Casi listos'],['rapidos','Rápidos']].map(([k,l])=>`<button class="gh${S.chip===k?' on':''}" data-a="chip" data-v="${k}">${l}</button>`).join('')}</div>
@@ -170,7 +170,7 @@ function v3(){
   else if(S.dtab==='pas')p=r.steps&&r.steps.length?`<p class="sm">Toca un paso para marcarlo como hecho.</p><ol class="st">${r.steps.map((s,i)=>`<li class="${S.done[i]?'dn':''}" data-a="sdone" data-v="${i}">${esc(s)}</li>`).join('')}</ol>`:'<p class="sm">Esta receta no tiene pasos.</p>';
   else p=`<div class="box"><h3>Compra con criterio</h3><p>Subtotal de ingredientes con precio de referencia: <b>${money(r.cost)}</b>.</p><p class="sm">No es el costo total: algunos ingredientes no tienen precio registrado. Los precios de ejemplo no son cotizaciones actuales. No se muestran calorías ni puntuaciones de salud sin una fuente nutricional validada.</p></div>`;
   return `<div class="top"><button class="gh" data-a="go" data-v="2">‹ Platos</button><span><button class="gh" data-a="fav" data-v="${r.id}">${f?'❤️ Guardada':'🤍 Guardar'}</button> <button class="gh" data-a="share" aria-label="Compartir">📤</button></span></div>
-  ${dishImage(r,'big')}<p class="sm image-note">${lastPhoto(r.id)?'Tu foto de la última vez que lo cocinaste':EXACT_PHOTO[r.id]&&!window.NO_GRID?'Foto ilustrativa · creada con IA':'Ilustración del plato · cocínalo y tu foto aparecerá aquí'}</p>
+  ${dishImage(r,'big')}<p class="sm image-note">${lastPhoto(r.id)?'Tu foto de la última vez que lo cocinaste':'Ilustración del plato · cocínalo y tu foto aparecerá aquí'}</p>
   <h2>${esc(r.name)}</h2><p class="sm">${esc(r.pais)}${r.time?' · '+esc(r.time):''}${r.lvl?' · '+esc(r.lvl):''}</p>
   <div class="bar"><i style="width:${r.pct}%;background:${col(r.pct)}"></i></div><p class="sm" style="margin:0">Cubres el ${r.pct}% con tu despensa.</p><button class="duo-btn cook-cta" data-a="cook">▶ Iniciar receta <span class="xp-pill">+${xpFor(r)} XP</span></button>${cookedCount(r.id)?`<p class="sm cook-note">Cocinada ${cookedCount(r.id)} ${cookedCount(r.id)===1?'vez':'veces'}${cookedToday(r.id)?' · hoy ya no suma XP':''}</p>`:`<p class="sm cook-note">Primera vez: ganas ${xpBreakdown(r).bonus} XP de bonus</p>`}
   <div class="tabs">${[['ing','Ingredientes'],['pas','Pasos'],['sal','Información']].map(([k,l])=>`<button class="${S.dtab===k?'on':''}" data-a="dtab" data-v="${k}">${l}</button>`).join('')}</div>${p}
@@ -390,6 +390,8 @@ document.addEventListener('input',e=>{if(e.target.id==='q')S.limit=24});
 
 // ===== Imágenes por plato =====
 // The 3x3 photo only shows 9 specific dishes: use it only for those exact recipes.
+// Every catalog recipe (b1–b101) has its own illustration in assets/dish-<id>.webp.
+const HAS_ART=id=>/^b([1-9]|[1-9]\d|10[01])$/.test(String(id));
 const EXACT_PHOTO={b2:'0% 0%',b14:'50% 0%',b3:'100% 0%',b7:'100% 0%',b34:'0% 50%',b55:'50% 50%',b43:'100% 50%',b96:'0% 100%',b63:'50% 100%',b19:'100% 100%'};
 const CAT_COL={carne:['#c75b3c','#7c2d1b'],arroz:['#e9b949','#a6701a'],pasta:['#e5743f','#a03c1b'],sopa:['#dc9b3b','#8d5a16'],ensalada:['#74b35f','#2f6c34'],pollo:['#e39b40','#9b5916'],desayuno:['#f0c35a','#b37d14'],postre:['#dc8eaa','#8f4462'],vegetales:['#6caa76','#2e5f3a']};
 const EMOJI_RULES=[[/^pan con|sandwich/,'🥪'],[/tostadas/,'🍞'],[/panqueque/,'🥞'],[/taco|fajita/,'🌮'],[/burrito/,'🌯'],[/quesadilla/,'🧀'],[/hamburguesa/,'🍔'],[/salchipapa/,'🍟'],[/arroz con leche|mazamorra|quinua con leche/,'🍮'],[/compota/,'🍎'],[/platano/,'🍌'],[/avena|yogur/,'🥣'],[/pasta|tallarin|fideo/,'🍝'],[/guacamole/,'🥑'],[/ceviche|pescado|atun/,'🐟'],[/tortilla|shakshuka|huevo/,'🍳'],[/gazpacho/,'🍅'],[/sopa|caldo|crema|chupe|aguadito|menestron|locro/,'🍲'],[/curry/,'🍛'],[/hummus|garbanzo|lenteja|frejol|frijol|tacu/,'🫘'],[/huancaina|ocopa|papa|yuca|pure/,'🥔'],[/ensalada|solterito|causa/,'🥗'],[/arroz|chaufa|risotto/,'🍚'],[/pollo|gallina|cau cau/,'🍗'],[/lomo|bistec|seco|adobo|olluquito|albondiga|saltado|carne|res/,'🥩'],[/humita|choclo/,'🌽'],[/zapallito|acelga|vainita|verdura/,'🥬']];
@@ -397,7 +399,7 @@ function dishEmoji(r){const n=strip(r.name||'');const hit=EMOJI_RULES.find(([re]
 function dishImage(r,cls){
   const own=lastPhoto(r.id);
   if(own)return `<div class="food-photo own ${cls}" style="background-image:url(${own});background-size:cover;background-position:center" role="img" aria-label="Tu foto de ${esc(r.name)}"><span class="own-tag">📸 Tu plato</span></div>`;
-  if(EXACT_PHOTO[r.id]&&!window.NO_GRID)return `<div class="food-photo ${cls}" style="background-position:${EXACT_PHOTO[r.id]}" role="img" aria-label="Foto ilustrativa de ${esc(r.name)}"></div>`;
+  if(HAS_ART(r.id))return `<div class="food-photo ${cls}" style="background-image:url(assets/dish-${r.id}.webp);background-size:cover;background-position:center" role="img" aria-label="Ilustración de ${esc(r.name)}"></div>`;
   const [a,b]=CAT_COL[category(r)]||CAT_COL.vegetales;
   return `<div class="dish-art ${cls}" style="--a:${a};--b:${b}" role="img" aria-label="Ilustración de ${esc(r.name)}"><span class="plate"><span>${dishEmoji(r)}</span></span></div>`;
 }
@@ -534,8 +536,6 @@ function diaryView(){
   return chefCard()+pend+(log||(!pend?'<div class="empty"><b>👩‍🍳</b>Aún no cocinaste ningún plato. Abre una receta y toca «Iniciar receta» para ganar tu primera XP.</div>':''));
 }
 
-// If assets/food-grid.webp is missing, fall back to the per-dish illustrations.
-(()=>{const i=new Image();i.onerror=()=>{window.NO_GRID=true;document.documentElement.classList.add('no-grid');render()};i.src='assets/food-grid.webp'})();
 go(0);saludar();
 if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('/sw.js').catch(()=>{});
 
