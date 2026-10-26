@@ -1,0 +1,46 @@
+{
+  "id": "/",
+  "name": "Nubi · ¿Qué cocino hoy?",
+  "short_name": "Nubi",
+  "description": "101 recetas peruanas e internacionales, despensa inteligente, asistente con IA y modo cocina paso a paso.",
+  "lang": "es-PE",
+  "dir": "ltr",
+  "start_url": "/?fuente=app",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "portrait",
+  "background_color": "#f8f6ef",
+  "theme_color": "#245545",
+  "prefer_related_applications": false,
+  "categories": ["food", "lifestyle", "education"],
+  "launch_handler": { "client_mode": "navigate-existing" },
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mi despensa",
+      "short_name": "Despensa",
+      "description": "Agrega lo que tienes en casa",
+      "url": "/?ir=1",
+      "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Ver platos",
+      "short_name": "Platos",
+      "description": "Explora las 101 recetas",
+      "url": "/?ir=2",
+      "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Mi cocina",
+      "short_name": "Mi cocina",
+      "description": "Tu diario, tu nivel y tu lista de compras",
+      "url": "/?ir=4",
+      "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

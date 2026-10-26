@@ -1,0 +1,16 @@
+{
+  "name": "nubi-que-cocino-hoy",
+  "version": "4.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Nubi · ¿Qué cocino hoy? App de recetas caseras con asistente de IA, modo cocina y niveles.",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "test": "node --test tests/*.test.js",
+    "diagnostico": "node --env-file-if-exists=.env diagnostico.js"
+  },
+  "dependencies": {}
+}
